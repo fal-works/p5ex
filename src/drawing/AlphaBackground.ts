@@ -1,0 +1,41 @@
+import { default as p5ex } from '../p5exInterface';
+import { Drawable } from '../loopables/Drawable';
+
+/**
+ * (To be filled)
+ * @hideconstructor
+ */
+export class AlphaBackground implements Drawable {
+  private readonly p: p5ex;
+  private backgroundColor: p5.Color;
+  private drawIntervalFrameCount: number;
+  private blendModeString: string | undefined;
+  private defaultBlendModeString: string | undefined;
+
+  constructor(
+    p5exInstance: p5ex,
+    backgroundColor: p5.Color,
+    drawIntervalFrameCount: number = 1,
+    blendModeString?: string,
+    defaultBlendModeString?: string,
+  ) {
+    this.p = p5exInstance;
+    this.backgroundColor = backgroundColor;
+    this.drawIntervalFrameCount = drawIntervalFrameCount;
+    this.blendModeString = blendModeString;
+    this.defaultBlendModeString = defaultBlendModeString;
+  }
+
+  /**
+   * Draws the background.
+   */
+  public draw(): void {
+    if (this.p.frameCount % this.drawIntervalFrameCount !== 0) return;
+
+    if (this.blendModeString) this.p.blendMode(this.blendModeString);
+    this.p.noStroke();
+    this.p.fill(this.backgroundColor);
+    this.p.rect(0, 0, this.p.width, this.p.height);
+    if (this.defaultBlendModeString) this.p.blendMode(this.defaultBlendModeString);
+  }
+}

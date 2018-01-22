@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "declaration": true,
+        "declarationDir": "./types",
+        "allowJs": false,
+        "target": "es2015",
+        "module": "es2015",
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "preserveConstEnums": true,
+        "alwaysStrict": true,
+        "strictNullChecks": true,
+        "noEmitOnError": true,
+        "noUnusedLocals": true,
+        "noImplicitThis": true
+    },
+    "files": [
+        "../../my_types/p5/p5.d.ts",
+        "./src/p5ex.ts"
+    ],
+    "compileOnSave": true
+}

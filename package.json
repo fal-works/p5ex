@@ -1,0 +1,40 @@
+{
+  "name": "p5ex",
+  "description": "An extension of p5.js.",
+  "version": "0.1.0",
+  "author": "FAL",
+  "devDependencies": {
+    "jsdoc": "^3.5.5",
+    "minami": "^1.2.3",
+    "no-more-for-loops": "^0.1.0",
+    "rollup": "^0.53.0",
+    "rollup-plugin-cleanup": "^2.0.0",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-typescript2": "^0.9.0",
+    "tslint": "^5.8.0",
+    "tslint-config-airbnb": "^5.3.0",
+    "uglify-es": "^3.2.1"
+  },
+  "files": [
+    "lib",
+    "types",
+    "doc"
+  ],
+  "jsnext:main": "lib/p5ex.mjs",
+  "license": "MIT",
+  "main": "lib/p5ex.js",
+  "module": "lib/p5ex.mjs",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fal-works/p5ex"
+  },
+  "scripts": {
+    "build": "npm-run-all rollup doc uglify:umd uglify:es",
+    "doc": "jsdoc -d ./doc/ -c ./jsdoc.conf.json -R ./README.md -t ./node_modules/minami/ ./lib/p5ex.mjs",
+    "rollup": "rollup -c",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "uglify:es": "uglifyjs ./lib/p5ex.mjs --compress --mangle --screw-ie8 --output ./lib/p5ex.min.mjs --comments --ecma 6",
+    "uglify:umd": "uglifyjs ./lib/p5ex.js --compress --mangle --screw-ie8 --output ./lib/p5ex.min.js --comments"
+  },
+  "types": "types/p5ex.d.ts"
+}
