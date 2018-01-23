@@ -1,19 +1,22 @@
 {
   "name": "p5ex",
   "description": "An extension of p5.js.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "FAL",
+  "dependencies": {
+    "no-more-for-loops": "^0.1.0"
+  },
   "devDependencies": {
     "jsdoc": "^3.5.5",
     "minami": "^1.2.3",
-    "no-more-for-loops": "^0.1.0",
-    "rollup": "^0.53.0",
+    "rollup": "^0.53.4",
     "rollup-plugin-cleanup": "^2.0.0",
-    "rollup-plugin-node-resolve": "^3.0.0",
-    "rollup-plugin-typescript2": "^0.9.0",
-    "tslint": "^5.8.0",
+    "rollup-plugin-node-resolve": "^3.0.2",
+    "rollup-plugin-typescript2": "^0.10.0",
+    "tslint": "^5.9.1",
     "tslint-config-airbnb": "^5.3.0",
-    "uglify-es": "^3.2.1"
+    "typescript": "^2.6.2",
+    "uglify-es": "^3.3.8"
   },
   "files": [
     "lib",
@@ -24,6 +27,9 @@
   "license": "MIT",
   "main": "lib/p5ex.js",
   "module": "lib/p5ex.mjs",
+  "peerDependencies": {
+    "p5": ">=0.5.0"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/fal-works/p5ex"
