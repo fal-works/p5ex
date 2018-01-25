@@ -51,7 +51,7 @@ class AlphaColorUnit implements ColorUnit {
   }
 
   fill(alphaValue?: number): void {
-    this.p.currentRenderer.stroke(this.getColor(alphaValue));
+    this.p.currentRenderer.fill(this.getColor(alphaValue));
   }
 
   private getColor(alphaValue?: number) {
@@ -106,7 +106,7 @@ export class ShapeColor {
 
   /**
    * Applies colors to the current p5 renderer.
-   * @param {number} alphaValue
+   * @param {number} alphaValue - Alpha channel value (0 - 255)
    */
   applyColor(alphaValue?: number): void {
     this.strokeColor.stroke(alphaValue);
