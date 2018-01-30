@@ -1,4 +1,11 @@
 /**
+ * Returns random value from the min number up to (but not including) the max number.
+ */
+export function randomBetween(min: number, max: number): number {
+  return min + Math.random() * (max - min);
+}
+
+/**
  * Returns random integer from 0 up to (but not including) the max number.
  */
 export function randomInt(maxInt: number): number {
