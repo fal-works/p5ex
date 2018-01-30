@@ -5,7 +5,7 @@ export class ScalableCanvas {
   /**
    * Corresponding HTML canvas element.
    */
-  readonly canvasElement: HTMLElement;
+  readonly canvasElement: HTMLCanvasElement;
 
   private readonly p: p5;
 
