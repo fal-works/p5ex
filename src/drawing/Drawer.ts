@@ -36,6 +36,14 @@ export class DrawerBuilder {
     return this;
   }
   /**
+   * @param offsetPositionRef
+   * @chainable
+   */
+  setOffsetPositionRef(offsetPositionRef: p5.Vector): DrawerBuilder {
+    this.drawParam.offsetPositionRef = offsetPositionRef;
+    return this;
+  }
+  /**
    * @param rotationAngleRef
    * @chainable
    */
@@ -75,6 +83,14 @@ export class DrawerBuilder {
     this.drawParam.strokeWeightRef = strokeWeightRef;
     return this;
   }
+  /**
+   * @param textSizeRef
+   * @chainable
+   */
+  setTextSizeRef(textSizeRef: NumberContainer): DrawerBuilder {
+    this.drawParam.textSizeRef = textSizeRef;
+    return this;
+  }
 
   /**
    * Builds a p5ex.Drawer instance.
@@ -86,11 +102,13 @@ export class DrawerBuilder {
 
 export interface DrawParameter {
   positionRef?: p5.Vector;
+  offsetPositionRef?: p5.Vector;
   rotationAngleRef?: NumberContainer;
   scaleFactorRef?: ScaleFactor;
   shapeColorRef?: ShapeColor;
   alphaChannelRef?: NumberContainer;
   strokeWeightRef?: NumberContainer;
+  textSizeRef?: NumberContainer;
 }
 
 /**
@@ -105,6 +123,10 @@ export class Drawer implements Drawable {
    * (To be filled)
    */
   position: p5.Vector;
+  /**
+   * (To be filled)
+   */
+  offsetPosition: p5.Vector;
   /**
    * (To be filled)
    */
@@ -125,6 +147,10 @@ export class Drawer implements Drawable {
    * (To be filled)
    */
   strokeWeight: NumberContainer;
+  /**
+   * (To be filled)
+   */
+  textSize: NumberContainer;
 
   protected readonly p: p5ex;
   private procedureList: ((drawer: Drawer) => void)[];
@@ -143,11 +169,13 @@ export class Drawer implements Drawable {
   set(element: Drawable, drawParam: DrawParameter): void {
     this.element = element;
     this.position = drawParam.positionRef || this.p.createVector();
+    this.offsetPosition = drawParam.offsetPositionRef || this.p.createVector();
     this.rotation = drawParam.rotationAngleRef || NumberContainer.NULL;
     this.scaleFactor = drawParam.scaleFactorRef || new ScaleFactor(this.p);
     this.shapeColor = drawParam.shapeColorRef || ShapeColor.UNDEFINED;
     this.alphaChannel = drawParam.alphaChannelRef || NumberContainer.NULL;
     this.strokeWeight = drawParam.strokeWeightRef || NumberContainer.NULL;
+    this.textSize = drawParam.textSizeRef || NumberContainer.NULL;
     this.procedureList = this.createProcedureList(drawParam);
     this.procedureListLength = this.procedureList.length;
   }
@@ -173,9 +201,14 @@ export class Drawer implements Drawable {
       else procedureList.push(this.color);
     }
 
+    if (drawParam.textSizeRef) procedureList.push(this.applyTextSize);
+
     if (drawParam.strokeWeightRef) procedureList.push(this.applyStrokeWeight);
 
-    if (drawParam.positionRef) procedureList.push(this.translate);
+    if (drawParam.positionRef) {
+      if (drawParam.offsetPositionRef) procedureList.push(this.translateWithOffset);
+      else procedureList.push(this.translate);
+    } else if (drawParam.offsetPositionRef) procedureList.push(this.translateOnlyOffset);
 
     if (drawParam.scaleFactorRef) procedureList.push(this.scale);
 
@@ -187,7 +220,10 @@ export class Drawer implements Drawable {
 
     if (drawParam.scaleFactorRef) procedureList.push(this.cancelScale);
 
-    if (drawParam.positionRef) procedureList.push(this.cancelTranslate);
+    if (drawParam.positionRef) {
+      if (drawParam.offsetPositionRef) procedureList.push(this.cancelTranslateWithOffset);
+      else procedureList.push(this.cancelTranslate);
+    } else if (drawParam.offsetPositionRef) procedureList.push(this.cancelTranslateOnlyOffset);
 
     return procedureList;
   }
@@ -198,6 +234,28 @@ export class Drawer implements Drawable {
 
   private cancelTranslate(drawer: Drawer): void {
     drawer.p.currentRenderer.translate(-drawer.position.x, -drawer.position.y);
+  }
+
+  private translateOnlyOffset(drawer: Drawer): void {
+    drawer.p.currentRenderer.translate(drawer.offsetPosition.x, drawer.offsetPosition.y);
+  }
+
+  private cancelTranslateOnlyOffset(drawer: Drawer): void {
+    drawer.p.currentRenderer.translate(-drawer.offsetPosition.x, -drawer.offsetPosition.y);
+  }
+
+  private translateWithOffset(drawer: Drawer): void {
+    drawer.p.currentRenderer.translate(
+      drawer.position.x + drawer.offsetPosition.x,
+      drawer.position.y + drawer.offsetPosition.y,
+    );
+  }
+
+  private cancelTranslateWithOffset(drawer: Drawer): void {
+    drawer.p.currentRenderer.translate(
+      -(drawer.position.x + drawer.offsetPosition.x),
+      -(drawer.position.y + drawer.offsetPosition.y),
+    );
   }
 
   private rotate(drawer: Drawer): void {
@@ -228,6 +286,10 @@ export class Drawer implements Drawable {
 
   private applyStrokeWeight(drawer: Drawer): void {
     drawer.p.currentRenderer.strokeWeight(drawer.strokeWeight.value);
+  }
+
+  private applyTextSize(drawer: Drawer): void {
+    drawer.p.currentRenderer.textSize(drawer.textSize.value);
   }
 }
 
