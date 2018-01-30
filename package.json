@@ -9,6 +9,7 @@
   "devDependencies": {
     "jsdoc": "^3.5.5",
     "minami": "^1.2.3",
+    "p5": "^0.6.0",
     "rollup": "^0.53.4",
     "rollup-plugin-cleanup": "^2.0.0",
     "rollup-plugin-node-resolve": "^3.0.2",
@@ -27,9 +28,6 @@
   "license": "MIT",
   "main": "lib/p5ex.js",
   "module": "lib/p5ex.mjs",
-  "peerDependencies": {
-    "p5": ">=0.5.0"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/fal-works/p5ex"

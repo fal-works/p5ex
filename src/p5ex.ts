@@ -9,7 +9,15 @@ class p5ex extends p5 implements p5exInterface {
    * Current renderer object, either the p5ex instance itself or any p5.Graphics instance.
    * Will be used as the drawing target.
    */
-  currentRenderer: p5ex | p5.Graphics;
+  currentRenderer: p5ex;
+
+  /**
+   * Sets the current renderer object.
+   * @param renderer
+   */
+  setCurrentRenderer(renderer: p5ex | p5.Graphics): void {
+    this.currentRenderer = renderer as p5ex;
+  }
 
   /**
    * The width and height of the HTML element which contains the sketch.
@@ -63,9 +71,13 @@ class p5ex extends p5 implements p5exInterface {
    * @param sync
    */
   constructor(
-    sketch?: (p: p5ex) => any, node?: HTMLElement | boolean | string, sync?: boolean,
+    sketch: Function, node?: HTMLElement | boolean | string, sync?: boolean,
   ) {
-    super(sketch, node, sync);
+    super(
+      sketch,
+      typeof node === 'string' ? document.getElementById(node) || undefined : node,
+      sync,
+    );
 
     this.currentRenderer = this;
 
