@@ -324,6 +324,8 @@ namespace p5ex {
 
   export import KeyCodes = constants.KeyCodes;
 
+  export import WeightedRandomSelector = weightedRandomSelector.WeightedRandomSelector;
+
   export import TwoDimensionalArray = twoDimensionalArray.TwoDimensionalArray;
   export import Edge = edge.Edge;
   export import NaiveEdge = edge.NaiveEdge;
@@ -371,6 +373,7 @@ namespace p5ex {
 import * as constants from './basic/constants';
 import * as random from './basic/random_functions';
 import * as math from './basic/math_functions';
+import * as weightedRandomSelector from './basic/WeightedRandomSelector';
 
 import * as shapeColor from './color/ShapeColor';
 import * as randomShapeColor from './color/RandomShapeColor';
