@@ -360,6 +360,7 @@ namespace p5ex {
   export import ShapeTypes = shapeType.ShapeTypes;
   export import ScalableShape = scalableShape.ScalableShape;
   export import LineSegment = lineSegment.LineSegment;
+  export import CircularArc = circularArc.CircularArc;
 
   export import AngleQuantity = angleQuantity.AngleQuantity;
   export import KinematicQuantity = kinematicQuantity.KinematicQuantity;
@@ -399,6 +400,7 @@ import * as alphaBackground from './drawing/AlphaBackground';
 import * as shapeType from './drawing/ShapeType';
 import * as scalableShape from './drawing/ScalableShape';
 import * as lineSegment from './drawing/LineSegment';
+import * as circularArc from './drawing/CircularArc';
 
 import * as angleQuantity from './physics/AngleQuantity';
 import * as kinematicQuantity from './physics/KinematicQuantity';
