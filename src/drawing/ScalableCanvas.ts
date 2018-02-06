@@ -1,13 +1,43 @@
 /**
+ * Parameters for creating p5ex.ScalableCanvas instance.
+ */
+export interface ScalableCanvasParameters {
+  /**
+   * Scaled width (the actual pixel size of the canvas).
+   */
+  scaledWidth: number;
+
+  /**
+   * Scaled height (the actual pixel size of the canvas).
+   */
+  scaledHeight: number;
+
+  /**
+   * Internal length of the short side of screen.
+   */
+  nonScaledShortSideLength: number;
+}
+
+export const DUMMY_PARAMETERS = {
+  scaledWidth: 100,
+  scaledHeight: 100,
+  nonScaledShortSideLength: 100,
+};
+
+/**
  * (To be filled)
+ * @hideConstructor
  */
 export class ScalableCanvas {
   /**
-   * Corresponding HTML canvas element.
+   * Corresponding canvas element.
+   * (The official p5.js type description defines it as an HTMLCanvasElement object,
+   *  however it should actually be handled as a p5.Renderer instance.)
    */
-  readonly canvasElement: HTMLCanvasElement;
+  readonly canvasElement: any;
 
   private readonly p: p5;
+  private nonScaledShortSideLength: number;
 
   // tslint:disable:variable-name
   private _scaleFactor: number;
@@ -45,36 +75,40 @@ export class ScalableCanvas {
     return this._aspectRatio;
   }
 
-  /**
-   * Calls createCanvas() of the current p5 instance and
-   * sets common variables related to the canvas size.
-   * @param {p5} p5Instance - p5 instance.
-   * @param {number} scaledWidth - Scaled width (the actual pixel size of the canvas).
-   * @param {number} scaledHeight - Scaled height (the actual pixel size of the canvas).
-   * @param {number} nonScaledShortSideLength - Internal length of the short side of the screen.
-   * @param {string} [rendererType] - Either P2D or WEBGL.
-   */
   constructor(
     p5Instance: p5,
-    scaledWidth: number,
-    scaledHeight: number,
-    nonScaledShortSideLength: number,
+    parameter: ScalableCanvasParameters,
+    node: HTMLElement,
     rendererType?: string,
   ) {
     this.p = p5Instance;
-
-    this.canvasElement = p5Instance.createCanvas(scaledWidth, scaledHeight, rendererType);
-
-    this.updateSize(nonScaledShortSideLength);
+    this.canvasElement = p5Instance.createCanvas(
+      parameter.scaledWidth, parameter.scaledHeight, rendererType,
+    );
+    (this.canvasElement as any).parent(node);
+    this.nonScaledShortSideLength = parameter.nonScaledShortSideLength;
+    this.updateSize();
   }
 
   /**
    * (To be filled)
-   * @param nonScaledShortSideLength
+   * @param parameter
    */
-  updateSize(nonScaledShortSideLength: number): void {
+  resize(parameter: ScalableCanvasParameters): void {
+    this.p.resizeCanvas(
+      parameter.scaledWidth,
+      parameter.scaledHeight,
+    );
+    this.nonScaledShortSideLength = parameter.nonScaledShortSideLength;
+    this.updateSize();
+  }
+
+  /**
+   * (To be filled)
+   */
+  updateSize(): void {
     const p = this.p;
-    this._scaleFactor = Math.min(p.width, p.height) / nonScaledShortSideLength;
+    this._scaleFactor = Math.min(p.width, p.height) / this.nonScaledShortSideLength;
     this._inversedScaleFactor = 1 / this._scaleFactor;
     this._nonScaledWidth = p.width / this._scaleFactor;
     this._nonScaledHeight = p.height / this._scaleFactor;

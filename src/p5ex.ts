@@ -34,6 +34,14 @@ class p5ex extends p5 implements p5exInterface {
    */
   scalableCanvas: p5ex.ScalableCanvas;
 
+
+  /**
+   * The HTML element which holds the p5 sketch.
+   */
+  node: HTMLElement;
+
+  private scalableCanvasType: p5ex.ScalableCanvasType;
+
   // tslint:disable:variable-name
   private _idealFrameRate: number;
   private _unitAngleSpeed: number;
@@ -79,6 +87,12 @@ class p5ex extends p5 implements p5exInterface {
       sync,
     );
 
+    if (!node || typeof node === 'boolean') {
+      this.node = document.body;
+    } else {
+      this.node = typeof node === 'string' ? document.getElementById(node) || document.body : node;
+    }
+
     this.currentRenderer = this;
 
     this.maxCanvasRegion = {
@@ -86,7 +100,7 @@ class p5ex extends p5 implements p5exInterface {
       height: 0,
       getShortSideLength() { return Math.min(this.width, this.height); },
     };
-    this.setMaxCanvasRegion(typeof node !== 'boolean' ? node : undefined);
+    this.updateMaxCanvasRegion();
     this.setFrameRate();
   }
 
@@ -108,20 +122,15 @@ class p5ex extends p5 implements p5exInterface {
   }
 
   /**
-   * Sets the value of the variable maxCanvasRegion.
-   * @param {HTMLElement | string} [node] - The sketch container HTML element or its ID attribute.
+   * Updates the value of the variable maxCanvasRegion.
    */
-  setMaxCanvasRegion(node?: HTMLElement | string): void {
+  updateMaxCanvasRegion(): void {
     this.maxCanvasRegion.width = this.windowWidth;
     this.maxCanvasRegion.height = this.windowHeight;
 
-    if (!node) return;
+    if (this.node === document.body) return;
 
-    const sketchContainerNode = (typeof node === 'string') ? document.getElementById(node) : node;
-
-    if (!sketchContainerNode) return;
-
-    const containerRect = sketchContainerNode.getBoundingClientRect();
+    const containerRect = this.node.getBoundingClientRect();
     this.maxCanvasRegion.width = containerRect.width;
     this.maxCanvasRegion.height = containerRect.height;
   }
@@ -129,49 +138,67 @@ class p5ex extends p5 implements p5exInterface {
   /**
    * Create an instance of ScalableCanvas. This includes calling of createCanvas().
    * @param {ScalableCanvasType} type - Type chosen from p5ex.ScalableCanvasType.
-   * @param {number} [scaledWidth] - Scaled width (the actual pixel size of the canvas).
-   * @param {number} [scaledHeight] - Scaled height (the actual pixel size of the canvas).
-   * @param {number} [rendererType] - Either P2D or WEBGL.
-   * @param {number} [nonScaledShortSideLength=640] - Internal length of the short side of screen.
+   * @param {ScalableCanvasParameters} [parameters] - Parameters for type CUSTOM.
+   * @param {string} [rendererType] - Either P2D or WEBGL.
    */
   createScalableCanvas(
     type: p5ex.ScalableCanvasType,
-    scaledWidth?: number,
-    scaledHeight?: number,
-    nonScaledShortSideLength?: number,
+    parameters?: p5ex.ScalableCanvasParameters,
     rendererType?: string,
   ): void {
-    let width: number;
-    let height: number;
-    let nonScaledShortSide: number;
+    this.scalableCanvasType = type;
+    this.scalableCanvas = new p5ex.ScalableCanvas(
+      this,
+      this.createScalableCanvasParameter(type, parameters),
+      this.node,
+      rendererType,
+    );
+  }
+
+  /**
+   * Resizes the ScalableCanvas.
+   * @param {ScalableCanvasType} [type] - Type chosen from p5ex.ScalableCanvasType.
+   *     If undefined, the last used type will be used again.
+   * @param {ScalableCanvasParameters} [parameters] - Parameters for type CUSTOM.
+   */
+  resizeScalableCanvas(
+    type?: p5ex.ScalableCanvasType,
+    parameters?: p5ex.ScalableCanvasParameters,
+  ): void {
+    this.scalableCanvas.resize(
+      this.createScalableCanvasParameter(type || this.scalableCanvasType, parameters),
+    );
+  }
+
+  protected createScalableCanvasParameter(
+    type: scalableCanvas.ScalableCanvasType,
+    parameters?: p5ex.ScalableCanvasParameters,
+  ): scalableCanvas.ScalableCanvasParameters {
+    this.updateMaxCanvasRegion();
     const maxShortSide = this.maxCanvasRegion.getShortSideLength();
 
     switch (type) {
-      case p5ex.ScalableCanvasType.SQUARE640x640:
-        width = maxShortSide;
-        height = maxShortSide;
-        nonScaledShortSide = 640;
-        break;
-      case p5ex.ScalableCanvasType.RECT640x480:
-        width = maxShortSide;
-        height = 0.75 * maxShortSide;
-        nonScaledShortSide = 480;
-        break;
-      case p5ex.ScalableCanvasType.FULL:
-        width = this.maxCanvasRegion.width;
-        height = this.maxCanvasRegion.height;
-        nonScaledShortSide = 640;
-        break;
-      case p5ex.ScalableCanvasType.CUSTOM:
+      case scalableCanvas.ScalableCanvasType.SQUARE640x640:
+        return {
+          scaledWidth: maxShortSide,
+          scaledHeight: maxShortSide,
+          nonScaledShortSideLength: 640,
+        };
+      case scalableCanvas.ScalableCanvasType.RECT640x480:
+        return {
+          scaledWidth: maxShortSide,
+          scaledHeight: 0.75 * maxShortSide,
+          nonScaledShortSideLength: 480,
+        };
+      case scalableCanvas.ScalableCanvasType.FULL:
+        return {
+          scaledWidth: this.maxCanvasRegion.width,
+          scaledHeight: this.maxCanvasRegion.height,
+          nonScaledShortSideLength: 640,
+        };
       default:
-        width = scaledWidth || 100;
-        height = scaledHeight || 100;
-        nonScaledShortSide = nonScaledShortSideLength || 100;
-        break;
+        return parameters || scalableCanvas.DUMMY_PARAMETERS;
     }
-    this.scalableCanvas = new p5ex.ScalableCanvas(
-      this, width, height, nonScaledShortSide, rendererType,
-    );
   }
 
   /**
@@ -334,6 +361,7 @@ namespace p5ex {
 
   export import ScalableCanvas = scalableCanvas.ScalableCanvas;
   export import ScalableCanvasType = scalableCanvas.ScalableCanvasType;
+  export import ScalableCanvasParameters = scalableCanvas.ScalableCanvasParameters;
 
   export import Drawable = drawable.Drawable;
   export import DrawableArray = drawable.DrawableArray;

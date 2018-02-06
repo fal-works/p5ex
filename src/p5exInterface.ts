@@ -1,6 +1,8 @@
 interface p5ex extends p5 {
   currentRenderer: p5;
 
+  setCurrentRenderer(renderer: p5 | p5.Graphics): void;
+
   readonly maxCanvasRegion: {
     width: number,
     height: number,
@@ -9,6 +11,8 @@ interface p5ex extends p5 {
 
   scalableCanvas: ScalableCanvas;
 
+  node: HTMLElement;
+
   idealFrameRate: number;
   unitAngleSpeed: number;
   unitSpeed: number;
@@ -16,13 +20,11 @@ interface p5ex extends p5 {
 
   setFrameRate(fps?: number | undefined): p5ex;
 
-  setMaxCanvasRegion(node?: HTMLElement | string): void;
+  updateMaxCanvasRegion(): void;
 
   createScalableCanvas(
     type: ScalableCanvasType,
-    scaledWidth?: number,
-    scaledHeight?: number,
-    nonScaledShortSideLength?: number,
+    parameters?: ScalableCanvasParameters,
     rendererType?: string,
   ): void;
 
@@ -38,7 +40,11 @@ interface p5ex extends p5 {
   createDrawerBuilder(): DrawerBuilder;
 }
 
-import { ScalableCanvas, ScalableCanvasType } from './drawing/ScalableCanvas';
+import {
+  ScalableCanvas,
+  ScalableCanvasType,
+  ScalableCanvasParameters,
+} from './drawing/ScalableCanvas';
 import { Drawable } from './loopables/Drawable';
 import { ShapeColor } from './color/ShapeColor';
 import {
