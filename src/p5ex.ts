@@ -156,7 +156,7 @@ class p5ex extends p5 implements p5exInterface {
   }
 
   /**
-   * Resizes the ScalableCanvas.
+   * Resizes the ScalableCanvas. Does not work on OpenProcessing.
    * @param {ScalableCanvasType} [type] - Type chosen from p5ex.ScalableCanvasType.
    *     If undefined, the last used type will be used again.
    * @param {ScalableCanvasParameters} [parameters] - Parameters for type CUSTOM.

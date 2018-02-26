@@ -85,7 +85,11 @@ export class ScalableCanvas {
     this.canvasElement = p5Instance.createCanvas(
       parameter.scaledWidth, parameter.scaledHeight, rendererType,
     );
-    (this.canvasElement as any).parent(node);
+
+    if (this.canvasElement && 'parent' in this.canvasElement) {
+      (this.canvasElement as any).parent(node);
+    }
+
     this.nonScaledShortSideLength = parameter.nonScaledShortSideLength;
     this.updateSize();
   }
