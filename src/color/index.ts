@@ -18,4 +18,6 @@ export {
 
 export {
   degamma,
-} from './degamma';
+  subtractColor,
+  hsbColor,
+} from './color_functions';

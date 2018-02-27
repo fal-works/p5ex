@@ -14,6 +14,10 @@ export class DrawerBuilder {
 
   protected readonly p: p5ex;
 
+  /**
+   *
+   * @param p
+   */
   constructor(p: p5ex) {
     this.p = p;
   }
@@ -156,6 +160,12 @@ export class Drawer implements Drawable {
   private procedureList: ((drawer: Drawer) => void)[];
   private procedureListLength: number;
 
+  /**
+   *
+   * @param p
+   * @param element
+   * @param drawParam
+   */
   constructor(p: p5ex, element: Drawable, drawParam: DrawParameter) {
     this.p = p;
     this.set(element, drawParam);

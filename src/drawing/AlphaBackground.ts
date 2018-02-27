@@ -3,7 +3,6 @@ import { Drawable } from '../loopables/Drawable';
 
 /**
  * (To be filled)
- * @hideconstructor
  */
 export class AlphaBackground implements Drawable {
   private readonly p: p5ex;
@@ -12,6 +11,14 @@ export class AlphaBackground implements Drawable {
   private blendModeString: string | undefined;
   private defaultBlendModeString: string | undefined;
 
+  /**
+   *
+   * @param p5exInstance
+   * @param backgroundColor
+   * @param drawIntervalFrameCount
+   * @param blendModeString
+   * @param defaultBlendModeString
+   */
   constructor(
     p5exInstance: p5ex,
     backgroundColor: p5.Color,

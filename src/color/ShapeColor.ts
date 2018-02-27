@@ -74,7 +74,6 @@ function colorUnit(
 
 /**
  * Composition of two p5.Color instances. One for stroke(), one for fill().
- * @hideconstructor
  */
 export class ShapeColor {
   /**
@@ -95,6 +94,14 @@ export class ShapeColor {
    */
   readonly fillColor: ColorUnit;
 
+  /**
+   *
+   * @param p - p5ex instance.
+   * @param {p5.Color | null | undefined} strokeColor - Color for stroke(). Null means noStroke().
+   * @param {p5.Color | null | undefined} fillColor - Color for fill(). Null means noFill().
+   * @param {boolean} [alphaEnabled]
+   * @param {number} [alphaResolution]
+   */
   constructor(
     p: p5ex | undefined,
     strokeColor: p5.Color | null | undefined, fillColor: p5.Color | null | undefined,

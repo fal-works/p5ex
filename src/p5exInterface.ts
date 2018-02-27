@@ -27,17 +27,6 @@ interface p5exInterface extends p5 {
     parameters?: ScalableCanvasParameters,
     rendererType?: string,
   ): void;
-
-  shapeColor(
-    strokeColor: p5.Color | null | undefined, fillColor: p5.Color | null | undefined,
-    alphaEnabled?: boolean, alphaResolution?: number,
-  ): ShapeColor;
-
-  createDrawer(
-    element: Drawable, drawParam: DrawParameter,
-  ): Drawer;
-
-  createDrawerBuilder(): DrawerBuilder;
 }
 
 import {
@@ -45,12 +34,5 @@ import {
   ScalableCanvasType,
   ScalableCanvasParameters,
 } from './drawing/ScalableCanvas';
-import { Drawable } from './loopables/Drawable';
-import { ShapeColor } from './color/ShapeColor';
-import {
-  DrawParameter,
-  Drawer,
-  DrawerBuilder,
-} from './drawing/Drawer';
 
 export default p5exInterface;

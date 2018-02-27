@@ -1,7 +1,7 @@
 import { cielabValueToXyzValue } from './cielabValueToXyzValue';
 import { multiplyMatrixAndArray } from '../basic/math_functions';
 import { Illuminant, Illuminants, xyzToLinearRgbConversionMatrix } from './XyzColorConstants';
-import { degamma } from './degamma';
+import { degamma } from './color_functions';
 
 let currentIlluminant: Illuminant = Illuminants.D50;
 

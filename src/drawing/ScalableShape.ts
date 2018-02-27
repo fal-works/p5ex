@@ -16,6 +16,13 @@ export class ScalableShape implements Drawable {
   private shapeType: ShapeType;
   private baseShapeSize: number;
 
+  /**
+   *
+   * @param p5exInstance
+   * @param shapeType - type chosen from p5ex.ShapeTypes
+   * @param {number} baseShapeSize
+   * @param {NumberContainer} [scaleFactorRef]
+   */
   constructor(
     p5exInstance: p5ex,
     shapeType: ShapeType,
