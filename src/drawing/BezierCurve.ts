@@ -1,6 +1,6 @@
 import { default as p5ex } from '../p5exInterface';
-import { Drawable } from '../loopables';
 import { dummyP5, NumberContainer } from '../basic';
+import { Drawable } from '../loopables';
 
 // temporal vectors for use in QuadraticBezierCurve.
 const tmpMidPoint1 = dummyP5.createVector();

@@ -1,6 +1,6 @@
 import { default as p5ex } from '../p5exInterface';
-import { Drawable } from '../loopables/Drawable';
-import { NumberContainer } from '../basic/NumberContainer';
+import { NumberContainer } from '../basic';
+import { Drawable } from '../loopables';
 
 /**
  * (To be filled)

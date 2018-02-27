@@ -1,5 +1,5 @@
-import { FrameCounter } from './FrameCounter';
 import { EMPTY_FUNCTION } from '../basic';
+import { FrameCounter } from './FrameCounter';
 
 /**
  * (To be filled)

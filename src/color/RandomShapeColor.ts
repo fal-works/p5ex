@@ -1,4 +1,4 @@
-import { getRandom } from '../basic/random_functions';
+import { getRandom } from '../basic';
 import { ShapeColor } from './ShapeColor';
 
 /**

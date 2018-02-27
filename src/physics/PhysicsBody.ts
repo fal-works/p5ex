@@ -1,12 +1,8 @@
-import { Steppable } from '../loopables/Steppable';
+import { dummyP5, distSq } from '../basic';
+import { Steppable } from '../loopables';
 import { KinematicQuantity } from './KinematicQuantity';
-import { distSq } from '../basic/math_functions';
 
-const temporalVector: p5.Vector = new p5.Vector();
-
-function sq(n: number) {
-  return n * n;
-}
+const temporalVector: p5.Vector = dummyP5.createVector();
 
 /**
  * (To be filled)
@@ -167,7 +163,8 @@ export class PhysicsBody implements Steppable {
    */
   collides(other: PhysicsBody): boolean {
     return (
-      distSq(this.position, other.position) < sq(this.collisionRadius) + sq(other.collisionRadius)
+      distSq(this.position, other.position) <
+      this.collisionRadius * this.collisionRadius + other.collisionRadius * other.collisionRadius
     );
   }
 

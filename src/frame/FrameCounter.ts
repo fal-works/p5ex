@@ -1,4 +1,4 @@
-import { Steppable } from '../loopables/Steppable';
+import { Steppable } from '../loopables';
 
 /**
  * (To be filled)

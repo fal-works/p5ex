@@ -1,5 +1,5 @@
-import { Steppable } from '../loopables/Steppable';
-import { NumberContainer } from '../basic/NumberContainer';
+import { NumberContainer } from '../basic';
+import { Steppable } from '../loopables';
 
 /**
  * (To be filled)
