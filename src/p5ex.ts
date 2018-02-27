@@ -29,19 +29,19 @@ class p5exClass extends p5 implements p5exInterface {
   };
 
   /**
-   * (To be filled)
+   * ScalableCanvas object created by createScalableCanvas().
    */
   scalableCanvas: ScalableCanvas;
 
  /**
-   * (To be filled)
+   * The non-scaled width of the canvas.
    */
   get nonScaledWidth(): number {
     return this.scalableCanvas.nonScaledWidth;
   }
 
   /**
-   * (To be filled)
+   * The non-scaled height of the canvas.
    */
   get nonScaledHeight(): number {
     return this.scalableCanvas.nonScaledHeight;
