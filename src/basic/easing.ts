@@ -7,11 +7,11 @@ export function easeOutQuad(ratio: number) {
 }
 
 export function easeOutCubic(ratio: number) {
-  return Math.pow(ratio - 1, 2) + 1;
+  return Math.pow(ratio - 1, 3) + 1;
 }
 
 export function easeOutQuart(ratio: number) {
-  return -Math.pow(ratio - 1, 2) + 1;
+  return -Math.pow(ratio - 1, 4) + 1;
 }
 
 const EASE_OUT_BACK_DEFAULT_COEFFICIENT = 1.70158;
