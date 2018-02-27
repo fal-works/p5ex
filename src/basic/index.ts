@@ -1,6 +1,5 @@
 export {
   EMPTY_FUNCTION,
-  // KeyCodes,
 } from './constants';
 
 export {
