@@ -33,6 +33,6 @@ import {
   ScalableCanvas,
   ScalableCanvasType,
   ScalableCanvasParameters,
-} from './drawing/ScalableCanvas';
+} from './canvas/ScalableCanvas';
 
 export default p5exInterface;

@@ -69,7 +69,7 @@ export class ScreenFlash extends ScreenEffect {
 
     this.alphaValue = 0;
     this.valueChange = 0;
-    this.flashColor = p.shapeColor(null, flashColor, true);
+    this.flashColor = new ShapeColor(p, null, flashColor, true);
   }
 
   apply(): void {

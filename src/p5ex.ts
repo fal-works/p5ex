@@ -216,14 +216,14 @@ class p5exClass extends p5 implements p5exInterface {
 
 import {
   DUMMY_PARAMETERS as SCALABLE_CANVAS_DUMMY_PARAMETERS,
-} from './drawing/ScalableCanvas';
+} from './canvas/ScalableCanvas';
 
 import {
   ScalableCanvas,
   ScalableCanvasType,
   ScalableCanvasTypes,
   ScalableCanvasParameters,
-} from './drawing';
+} from './canvas';
 
 export { p5exClass };
 export * from './properties';

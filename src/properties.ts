@@ -1,5 +1,6 @@
 export * from 'no-more-for-loops';
 export * from './basic';
+export * from './canvas';
 export * from './data';
 export * from './loopables';
 export * from './color';
