@@ -41,7 +41,7 @@ export class Illuminant {
 /**
  * Map of illuminants.
  */
-export const Illuminants: { [key: string]: Illuminant } = {
+export const Illuminants = {
   D50: new Illuminant('D50', [0.9642, 1.0000, 0.8251]),
   D55: new Illuminant('D55', [0.9568, 1.0000, 0.9214]),
   D65: new Illuminant('D65', [0.95047, 1.00000, 1.08883]),

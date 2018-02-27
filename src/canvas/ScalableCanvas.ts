@@ -154,10 +154,10 @@ export type ScalableCanvasType = 'SQUARE640x640' | 'RECT640x480' | 'FULL' | 'CUS
  * (To be filled)
  * (This is not implemented as an enum because it is not supported by rollup)
  */
-export const ScalableCanvasTypes: { [key: string]: ScalableCanvasType } = {
-  SQUARE640x640: 'SQUARE640x640',
-  RECT640x480: 'RECT640x480',
-  FULL: 'FULL',
-  CUSTOM: 'CUSTOM',
+export const ScalableCanvasTypes = {
+  SQUARE640x640: 'SQUARE640x640' as ScalableCanvasType,
+  RECT640x480: 'RECT640x480' as ScalableCanvasType,
+  FULL: 'FULL' as ScalableCanvasType,
+  CUSTOM: 'CUSTOM' as ScalableCanvasType,
 };
 // tslint:enable

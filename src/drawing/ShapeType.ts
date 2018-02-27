@@ -15,7 +15,7 @@ const SIN60 = Math.sqrt(3) / 2;
 /**
  * Set of shape types.
  */
-export const ShapeTypes: { [key: string]: ShapeType } = {
+export const ShapeTypes = {
   CIRCLE: new ShapeType(
     (renderer: p5, size: number) => { renderer.ellipse(0, 0, size, size); },
   ),
