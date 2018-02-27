@@ -304,6 +304,18 @@ class p5exClass extends p5 implements p5exInterface {
   ) {
     return new ScalableShape(this, shapeType, baseShapeSize, scaleFactorRef);
   }
+
+  /**
+   * Returns true if the mouse cursor is on the canvas.
+   */
+  mouseOnCanvas(): boolean {
+    if (this.mouseX < 0) return false;
+    if (this.mouseX > this.width) return false;
+    if (this.mouseY < 0) return false;
+    if (this.mouseY > this.height) return false;
+
+    return true;
+  }
 }
 
 import {
