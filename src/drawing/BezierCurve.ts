@@ -1,5 +1,5 @@
 import { default as p5ex } from '../p5exInterface';
-import { dummyP5, NumberContainer } from '../basic';
+import { dummyP5, NumberContainer, distSq, angleDifference, getDirectionAngle } from '../basic';
 import { Drawable } from '../loopables';
 
 // temporal vectors for use in QuadraticBezierCurve.
@@ -58,6 +58,36 @@ export class QuadraticBezierCurve implements Drawable {
         ratio1 * tmpMidPoint1.y + ratio2 * tmpMidPoint2.y,
       );
     }
+  }
+
+  /**
+   * Returns true if the provided control point candidate is valid.
+   * @param controlPoint - The control point candidate to be checked.
+   * @param startPoint - The start point of the bezier curve.
+   * @param endPoint - The start point of the bezier curve.
+   * @param minDistance - Minimum distance between the control point and the start/end point.
+   * @param minAngle - Minimum angle of the control point.
+   * @param maxAngle - Maximum angle of the control point.
+   * @static
+   */
+  static checkControlPoint(
+    controlPoint: p5.Vector, startPoint: p5.Vector, endPoint: p5.Vector,
+    minDistance: number, minAngle: number, maxAngle: number,
+  ): boolean {
+    const minDistanceSquared = minDistance * minDistance;
+
+    if (distSq(controlPoint, startPoint) < minDistanceSquared) return false;
+    if (distSq(controlPoint, endPoint) < minDistanceSquared) return false;
+
+    const angle = Math.abs(angleDifference(
+      getDirectionAngle(controlPoint, startPoint),
+      getDirectionAngle(controlPoint, endPoint),
+    ));
+
+    if (angle < minAngle) return false;
+    if (angle > maxAngle) return false;
+
+    return true;
   }
 
   draw(): void {
