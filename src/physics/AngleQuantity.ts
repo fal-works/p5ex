@@ -6,10 +6,10 @@ import { NumberContainer } from '../basic/NumberContainer';
  */
 export class AngleQuantity implements Steppable {
   /**
-   * Null object.
+   * Null object of AngleQuantity.
    * @static
    */
-  static readonly NULL: AngleQuantity = new AngleQuantity();
+  static get NULL(): AngleQuantity { return NULL; }
 
   /**
    * Reference to the angle.
@@ -51,5 +51,12 @@ export class AngleQuantity implements Steppable {
   }
 }
 
-AngleQuantity.NULL.step = () => { };
-Object.freeze(AngleQuantity.NULL);
+export class NullAngleQuantity extends AngleQuantity {
+  get angle(): number { return 0; }
+  set angle(v: number) { }
+  get angleVelocity(): number { return 0; }
+  set angleVelocity(v: number) { }
+  step() { }
+}
+
+const NULL = new NullAngleQuantity();

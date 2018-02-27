@@ -3,25 +3,35 @@ import { TwoDimensionalArray } from './TwoDimensionalArray';
 /**
  * (To be filled)
  */
-export class Cell {
+export abstract class AbstractCell {
   /**
-   * Null object of p5ex.Cell.
+   * Null object.
    * @static
    */
-  static NULL: Cell;
+  static get NULL(): NullCell { return NULL; }
 
+  abstract getNeighborCell(relativeX: number, relativeY: number): AbstractCell;
+  abstract setNeighborCell(relativeX: number, relativeY: number, cell: AbstractCell): void;
+}
+
+/**
+ * (To be filled)
+ */
+export class Cell extends AbstractCell {
   /**
    * Neighbor cells.
    */
-  readonly neighborCells: TwoDimensionalArray<Cell>;
+  protected readonly neighborCells: TwoDimensionalArray<AbstractCell>;
 
   /**
    *
    * @param neighborRange
    */
   constructor(neighborRange: number = 1) {
-    this.neighborCells = new TwoDimensionalArray<Cell>(
-      2 * neighborRange + 1, 2 * neighborRange + 1, Cell.NULL,
+    super();
+
+    this.neighborCells = new TwoDimensionalArray<AbstractCell>(
+      2 * neighborRange + 1, 2 * neighborRange + 1, NULL,
     );
   }
 
@@ -30,13 +40,13 @@ export class Cell {
    * @param {number} relativeX
    * @param {number} relativeY
    */
-  getNeighborCell(relativeX: number, relativeY: number): Cell {
+  getNeighborCell(relativeX: number, relativeY: number): AbstractCell {
     const neighborRange = Math.floor(this.neighborCells.xCount / 2);
 
     if (
       relativeX < -neighborRange || relativeX > neighborRange ||
       relativeY < -neighborRange || relativeY > neighborRange
-    ) return Cell.NULL;
+    ) return NULL;
 
     return this.neighborCells.get2D(relativeX + neighborRange, relativeY + neighborRange);
   }
@@ -47,26 +57,22 @@ export class Cell {
    * @param relativeY
    * @param cell
    */
-  setNeighborCell(relativeX: number, relativeY: number, cell: Cell): void {
+  setNeighborCell(relativeX: number, relativeY: number, cell: AbstractCell): void {
     const neighborRange = Math.floor(this.neighborCells.xCount / 2);
     this.neighborCells.set2D(relativeX + neighborRange, relativeY + neighborRange, cell);
   }
 }
 
-class NullCell extends Cell {
-  constructor() {
-    super(0);
-  }
-
-  getNeighborCell(relativeX: number, relativeY: number): Cell {
+export class NullCell extends AbstractCell {
+  getNeighborCell(relativeX: number, relativeY: number): AbstractCell {
     return this;
   }
 
-  setNeighborCell(relativeX: number, relativeY: number, cell: Cell): void { }
+  setNeighborCell(relativeX: number, relativeY: number, cell: AbstractCell): void { }
 }
 
-Cell.NULL = new NullCell();
-Object.freeze(Cell.NULL);
+const NULL = new NullCell();
+
 
 export interface Index2D {
   x: number;
@@ -80,9 +86,9 @@ export class Grid {
   /**
    * Cells.
    */
-  cell2DArray: TwoDimensionalArray<Cell>;
+  cell2DArray: TwoDimensionalArray<AbstractCell>;
 
-  private cellIndexMap: Map<Cell, Index2D>;
+  private cellIndexMap: Map<AbstractCell, Index2D>;
 
   /**
    *
@@ -92,8 +98,8 @@ export class Grid {
    * @param {boolean} loopAtEndOfScreen
    */
   constructor(xCount: number, yCount: number, neighborRange: number, loopAtEndOfScreen: boolean) {
-    this.cell2DArray = new TwoDimensionalArray<Cell>(xCount, yCount, Cell.NULL);
-    this.cellIndexMap = new Map<Cell, Index2D>();
+    this.cell2DArray = new TwoDimensionalArray<AbstractCell>(xCount, yCount, NULL);
+    this.cellIndexMap = new Map<AbstractCell, Index2D>();
 
     for (let yIndex = 0; yIndex < yCount; yIndex += 1) {
       for (let xIndex = 0; xIndex < xCount; xIndex += 1) {
@@ -113,7 +119,7 @@ export class Grid {
    * @param {number} x - X index.
    * @param {number} y - Y index.
    */
-  getCell(x: number, y: number): Cell {
+  getCell(x: number, y: number): AbstractCell {
     return this.cell2DArray.get2D(x, y);
   }
 
@@ -121,21 +127,21 @@ export class Grid {
    * Returns the x and y index of the given cell.
    * @param cell
    */
-  getCellIndex(cell: Cell): Index2D {
+  getCellIndex(cell: AbstractCell): Index2D {
     return this.cellIndexMap.get(cell) || { x: -1, y: -1 };
   }
 
   /**
    * (To be filled)
-   * @param {Cell} referenceCell
+   * @param {AbstractCell} referenceCell
    * @param {number} relX
    * @param {number} relY
    * @param {boolean} loopAtEndOfScreen
    */
   getRelativePositionCell(
-    referenceCell: Cell, relX: number, relY: number, loopAtEndOfScreen: boolean,
-  ): Cell {
-    if (referenceCell === Cell.NULL) return referenceCell;
+    referenceCell: AbstractCell, relX: number, relY: number, loopAtEndOfScreen: boolean,
+  ): AbstractCell {
+    if (referenceCell === NULL) return referenceCell;
     if (relX === 0 && relY === 0) return referenceCell;
 
     const referenceIndex = this.getCellIndex(referenceCell);
@@ -153,7 +159,7 @@ export class Grid {
       if (
         targetIndex.x < 0 || targetIndex.x >= this.cell2DArray.xCount ||
         targetIndex.y < 0 || targetIndex.y >= this.cell2DArray.yCount
-      ) return Cell.NULL;
+      ) return NULL;
     }
 
     return this.cell2DArray.get2D(targetIndex.x, targetIndex.y);
