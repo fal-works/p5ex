@@ -6,3 +6,4 @@ export * from './color';
 export * from './drawing';
 export * from './physics';
 export * from './frame';
+export * from './input';
