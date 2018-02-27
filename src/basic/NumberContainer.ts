@@ -26,5 +26,3 @@ export class NumberContainer {
     return this.value;
   }
 }
-
-Object.freeze(NumberContainer.NULL);
