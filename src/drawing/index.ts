@@ -49,3 +49,8 @@ export {
 export {
   drawSineWave,
 } from './functions';
+
+export {
+  FontUnit,
+  FontManager,
+} from './Font';
