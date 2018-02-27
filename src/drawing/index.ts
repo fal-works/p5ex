@@ -37,6 +37,10 @@ export {
 } from './CircularArc';
 
 export {
+  QuadraticBezierCurve,
+} from './BezierCurve';
+
+export {
   ScreenEffect,
   ScreenShake,
   ScreenFlash,
