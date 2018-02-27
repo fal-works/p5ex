@@ -1,22 +1,21 @@
 import p5exInterface from './p5exInterface';
-import * as nmfl from 'no-more-for-loops';
 
 /**
  * Extension of p5 class.
  */
-class p5ex extends p5 implements p5exInterface {
+class p5exClass extends p5 implements p5exInterface {
   /**
    * Current renderer object, either the p5ex instance itself or any p5.Graphics instance.
    * Will be used as the drawing target.
    */
-  currentRenderer: p5ex;
+  currentRenderer: p5exClass;
 
   /**
    * Sets the current renderer object.
    * @param renderer
    */
-  setCurrentRenderer(renderer: p5ex | p5.Graphics): void {
-    this.currentRenderer = renderer as p5ex;
+  setCurrentRenderer(renderer: p5exClass | p5.Graphics): void {
+    this.currentRenderer = renderer as p5exClass;
   }
 
   /**
@@ -32,7 +31,7 @@ class p5ex extends p5 implements p5exInterface {
   /**
    * (To be filled)
    */
-  scalableCanvas: p5ex.ScalableCanvas;
+  scalableCanvas: ScalableCanvas;
 
 
   /**
@@ -40,7 +39,7 @@ class p5ex extends p5 implements p5exInterface {
    */
   node: HTMLElement;
 
-  private scalableCanvasType: p5ex.ScalableCanvasType;
+  private scalableCanvasType: ScalableCanvasType;
 
   // tslint:disable:variable-name
   private _idealFrameRate: number;
@@ -108,7 +107,7 @@ class p5ex extends p5 implements p5exInterface {
    * Calls frameRate() and sets variables related to the frame rate.
    * @param {number} [fps=60] - The ideal frame rate per second.
    */
-  setFrameRate(fps: number | undefined = 60): p5ex {
+  setFrameRate(fps: number | undefined = 60): p5exClass {
     this.frameRate(fps);
 
     if (fps) {
@@ -142,12 +141,12 @@ class p5ex extends p5 implements p5exInterface {
    * @param {string} [rendererType] - Either P2D or WEBGL.
    */
   createScalableCanvas(
-    type: p5ex.ScalableCanvasType,
-    parameters?: p5ex.ScalableCanvasParameters,
+    type: ScalableCanvasType,
+    parameters?: ScalableCanvasParameters,
     rendererType?: string,
   ): void {
     this.scalableCanvasType = type;
-    this.scalableCanvas = new p5ex.ScalableCanvas(
+    this.scalableCanvas = new ScalableCanvas(
       this,
       this.createScalableCanvasParameter(type, parameters),
       this.node,
@@ -162,8 +161,8 @@ class p5ex extends p5 implements p5exInterface {
    * @param {ScalableCanvasParameters} [parameters] - Parameters for type CUSTOM.
    */
   resizeScalableCanvas(
-    type?: p5ex.ScalableCanvasType,
-    parameters?: p5ex.ScalableCanvasParameters,
+    type?: ScalableCanvasType,
+    parameters?: ScalableCanvasParameters,
   ): void {
     this.scalableCanvas.resize(
       this.createScalableCanvasParameter(type || this.scalableCanvasType, parameters),
@@ -171,33 +170,33 @@ class p5ex extends p5 implements p5exInterface {
   }
 
   protected createScalableCanvasParameter(
-    type: scalableCanvas.ScalableCanvasType,
-    parameters?: p5ex.ScalableCanvasParameters,
-  ): scalableCanvas.ScalableCanvasParameters {
+    type: ScalableCanvasType,
+    parameters?: ScalableCanvasParameters,
+  ): ScalableCanvasParameters {
     this.updateMaxCanvasRegion();
     const maxShortSide = this.maxCanvasRegion.getShortSideLength();
 
     switch (type) {
-      case scalableCanvas.ScalableCanvasType.SQUARE640x640:
+      case ScalableCanvasTypes.SQUARE640x640:
         return {
           scaledWidth: maxShortSide,
           scaledHeight: maxShortSide,
           nonScaledShortSideLength: 640,
         };
-      case scalableCanvas.ScalableCanvasType.RECT640x480:
+      case ScalableCanvasTypes.RECT640x480:
         return {
           scaledWidth: maxShortSide,
           scaledHeight: 0.75 * maxShortSide,
           nonScaledShortSideLength: 480,
         };
-      case scalableCanvas.ScalableCanvasType.FULL:
+      case ScalableCanvasTypes.FULL:
         return {
           scaledWidth: this.maxCanvasRegion.width,
           scaledHeight: this.maxCanvasRegion.height,
           nonScaledShortSideLength: 640,
         };
       default:
-        return parameters || scalableCanvas.DUMMY_PARAMETERS;
+        return parameters || SCALABLE_CANVAS_DUMMY_PARAMETERS;
     }
   }
 
@@ -211,8 +210,8 @@ class p5ex extends p5 implements p5exInterface {
   shapeColor(
     strokeColor: p5.Color | null | undefined, fillColor: p5.Color | null | undefined,
     alphaEnabled?: boolean, alphaResolution?: number,
-  ): p5ex.ShapeColor {
-    return new p5ex.ShapeColor(
+  ): ShapeColor {
+    return new ShapeColor(
       this, strokeColor, fillColor, alphaEnabled, alphaResolution,
     );
   }
@@ -223,16 +222,16 @@ class p5ex extends p5 implements p5exInterface {
    * @param drawParam
    */
   createDrawer(
-    element: p5ex.Drawable, drawParam: p5ex.DrawParameter,
-  ): p5ex.Drawer {
-    return new p5ex.Drawer(this, element, drawParam);
+    element: Drawable, drawParam: DrawParameter,
+  ): Drawer {
+    return new Drawer(this, element, drawParam);
   }
 
   /**
    * Creates a new p5ex.DrawerBuiler instance.
    */
-  createDrawerBuilder(): p5ex.DrawerBuilder {
-    return new p5ex.DrawerBuilder(this);
+  createDrawerBuilder(): DrawerBuilder {
+    return new DrawerBuilder(this);
   }
 
   /**
@@ -247,8 +246,8 @@ class p5ex extends p5 implements p5exInterface {
     drawIntervalFrameCount: number = 1,
     blendModeString?: string,
     defaultBlendModeString?: string,
-  ): p5ex.AlphaBackground {
-    return new p5ex.AlphaBackground(
+  ): AlphaBackground {
+    return new AlphaBackground(
       this,
       backgroundColor,
       drawIntervalFrameCount,
@@ -296,147 +295,46 @@ class p5ex extends p5 implements p5exInterface {
    * Creates a new instance of p5ex.ScalableShape.
    * @param shapeType - type chosen from p5ex.ShapeTypes
    * @param {number} baseShapeSize
-   * @param {p5ex.NumberContainer} [scaleFactorRef]
+   * @param {NumberContainer} [scaleFactorRef]
    */
   createScalableShape(
-    shapeType: p5ex.ShapeType,
+    shapeType: ShapeType,
     baseShapeSize: number,
-    scaleFactorRef?: p5ex.NumberContainer,
+    scaleFactorRef?: NumberContainer,
   ) {
-    return new p5ex.ScalableShape(this, shapeType, baseShapeSize, scaleFactorRef);
+    return new ScalableShape(this, shapeType, baseShapeSize, scaleFactorRef);
   }
-
-  loopArray;
-  loopArrayBackwards;
-  roundRobin;
-  nestedLoopJoin;
-
-  randomInt;
-  randomIntBetween;
-  getRandom;
-  randomSign;
-  popRandom;
-
-  distSq;
-
-  setIlluminant;
-  cielabColor;
-  cielchColor;
 }
 
-p5ex.prototype.loopArray = nmfl.loopArray;
-p5ex.prototype.loopArrayBackwards = nmfl.loopArrayBackwards;
-p5ex.prototype.roundRobin = nmfl.roundRobin;
-p5ex.prototype.nestedLoopJoin = nmfl.nestedLoopJoin;
+import {
+  NumberContainer,
+} from './basic';
 
-p5ex.prototype.randomInt = random.randomInt;
-p5ex.prototype.randomIntBetween = random.randomIntBetween;
-p5ex.prototype.getRandom = random.getRandom;
-p5ex.prototype.randomSign = random.randomSign;
-p5ex.prototype.popRandom = random.popRandom;
+import {
+  DUMMY_PARAMETERS as SCALABLE_CANVAS_DUMMY_PARAMETERS,
+} from './drawing/ScalableCanvas';
 
-p5ex.prototype.distSq = math.distSq;
+import {
+  Drawable,
+} from './loopables';
 
-p5ex.prototype.setIlluminant = cielab.setIlluminant;
-p5ex.prototype.cielabColor = cielab.cielabColor;
-p5ex.prototype.cielchColor = cielab.cielchColor;
+import {
+  ShapeColor,
+  degamma,
+} from './color';
 
+import {
+  ScalableCanvas,
+  ScalableCanvasType,
+  ScalableCanvasTypes,
+  ScalableCanvasParameters,
+  DrawParameter,
+  Drawer,
+  DrawerBuilder,
+  AlphaBackground,
+  ShapeType,
+  ScalableShape,
+} from './drawing';
 
-namespace p5ex {
-  // Syntax 'import A = N.B'
-  // https://github.com/Microsoft/TypeScript/issues/12473
-  // https://github.com/Microsoft/TypeScript/blob/master/doc/spec.md#10.3
-
-  export import LoopableArray = nmfl.LoopableArray;
-
-  export import KeyCodes = constants.KeyCodes;
-
-  export import WeightedRandomSelector = weightedRandomSelector.WeightedRandomSelector;
-
-  export import TwoDimensionalArray = twoDimensionalArray.TwoDimensionalArray;
-  export import Edge = edge.Edge;
-  export import NaiveEdge = edge.NaiveEdge;
-  export import Cell = grid.Cell;
-  export import Grid = grid.Grid;
-
-  export import ScalableCanvas = scalableCanvas.ScalableCanvas;
-  export import ScalableCanvasType = scalableCanvas.ScalableCanvasType;
-  export import ScalableCanvasParameters = scalableCanvas.ScalableCanvasParameters;
-
-  export import Drawable = drawable.Drawable;
-  export import DrawableArray = drawable.DrawableArray;
-  export import Steppable = steppable.Steppable;
-  export import SteppableArray = steppable.SteppableArray;
-  export import Sprite = sprite.Sprite;
-  export import SpriteArray = sprite.SpriteArray;
-  export import Cleanable = cleanable.Cleanable;
-  export import CleanableArray = cleanable.CleanableArray;
-  export import CleanableSprite = cleanableSprite.CleanableSprite;
-  export import CleanableSpriteArray = cleanableSprite.CleanableSpriteArray;
-
-  export import ShapeColor = shapeColor.ShapeColor;
-  export import RandomShapeColor = randomShapeColor.RandomShapeColor;
-  export import Illuminants = cielab.Illuminants;
-
-  export import NumberContainer = numberContainer.NumberContainer;
-  export import ScaleFactor = scaleFactor.ScaleFactor;
-  export import DrawParameter = drawer.DrawParameter;
-  export import Drawer = drawer.Drawer;
-  export import DrawerBuilder = drawer.DrawerBuilder;
-  export import AlphaBackground = alphaBackground.AlphaBackground;
-  export import ShapeType = shapeType.ShapeType;
-  export import ShapeTypes = shapeType.ShapeTypes;
-  export import ScalableShape = scalableShape.ScalableShape;
-  export import LineSegment = lineSegment.LineSegment;
-  export import CircularArc = circularArc.CircularArc;
-
-  export import AngleQuantity = angleQuantity.AngleQuantity;
-  export import KinematicQuantity = kinematicQuantity.KinematicQuantity;
-  export import PhysicsBody = physicsBody.PhysicsBody;
-
-  export import FrameCounter = frameCounter.FrameCounter;
-  export import LoopedFrameCounter = loopedFrameCounter.LoopedFrameCounter;
-  export import NonLoopedFrameCounter = nonLoopedFrameCounter.NonLoopedFrameCounter;
-}
-
-import * as constants from './basic/constants';
-import * as random from './basic/random_functions';
-import * as math from './basic/math_functions';
-import * as weightedRandomSelector from './basic/WeightedRandomSelector';
-
-import * as shapeColor from './color/ShapeColor';
-import * as randomShapeColor from './color/RandomShapeColor';
-import { degamma } from './color/degamma';
-import * as cielab from './color/cielab_color_functions';
-
-import * as twoDimensionalArray from './data/TwoDimensionalArray';
-import * as edge from './data/Edge';
-import * as grid from './data/Grid';
-
-import * as scalableCanvas from './drawing/ScalableCanvas';
-
-import * as drawable from './loopables/Drawable';
-import * as steppable from './loopables/Steppable';
-import * as sprite from './loopables/Sprite';
-import * as cleanable from './loopables/Cleanable';
-import * as cleanableSprite from './loopables/CleanableSprite';
-
-import * as numberContainer from './basic/NumberContainer';
-import * as scaleFactor from './drawing/ScaleFactor';
-import * as drawer from './drawing/Drawer';
-import * as alphaBackground from './drawing/AlphaBackground';
-import * as shapeType from './drawing/ShapeType';
-import * as scalableShape from './drawing/ScalableShape';
-import * as lineSegment from './drawing/LineSegment';
-import * as circularArc from './drawing/CircularArc';
-
-import * as angleQuantity from './physics/AngleQuantity';
-import * as kinematicQuantity from './physics/KinematicQuantity';
-import * as physicsBody from './physics/PhysicsBody';
-
-import * as frameCounter from './frame/FrameCounter';
-import * as loopedFrameCounter from './frame/LoopedFrameCounter';
-import * as nonLoopedFrameCounter from './frame/NonLoopedFrameCounter';
-
-
-export default p5ex;
+export { p5exClass };
+export * from './properties';

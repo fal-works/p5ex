@@ -1,4 +1,4 @@
-interface p5ex extends p5 {
+interface p5exInterface extends p5 {
   currentRenderer: p5;
 
   setCurrentRenderer(renderer: p5 | p5.Graphics): void;
@@ -18,7 +18,7 @@ interface p5ex extends p5 {
   unitSpeed: number;
   unitAccelerationMagnitude: number;
 
-  setFrameRate(fps?: number | undefined): p5ex;
+  setFrameRate(fps?: number | undefined): p5exInterface;
 
   updateMaxCanvasRegion(): void;
 
@@ -53,4 +53,4 @@ import {
   DrawerBuilder,
 } from './drawing/Drawer';
 
-export default p5ex;
+export default p5exInterface;

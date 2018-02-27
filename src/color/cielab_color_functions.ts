@@ -3,8 +3,6 @@ import { multiplyMatrixAndArray } from '../basic/math_functions';
 import { Illuminant, Illuminants, xyzToLinearRgbConversionMatrix } from './XyzColorConstants';
 import { degamma } from './degamma';
 
-export { Illuminants } from './XyzColorConstants';
-
 let currentIlluminant: Illuminant = Illuminants.D50;
 
 /**
