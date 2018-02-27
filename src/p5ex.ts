@@ -149,7 +149,7 @@ class p5exClass extends p5 implements p5exInterface {
 
   /**
    * Create an instance of ScalableCanvas. This includes calling of createCanvas().
-   * @param {ScalableCanvasType} type - Type chosen from p5ex.ScalableCanvasType.
+   * @param {ScalableCanvasType} type - Type chosen from p5ex.ScalableCanvasTypes.
    * @param {ScalableCanvasParameters} [parameters] - Parameters for type CUSTOM.
    * @param {string} [rendererType] - Either P2D or WEBGL.
    */
