@@ -209,14 +209,10 @@ class p5exClass extends p5 implements p5exInterface {
           nonScaledShortSideLength: 640,
         };
       default:
-        return parameters || SCALABLE_CANVAS_DUMMY_PARAMETERS;
+        return parameters || ScalableCanvas.DUMMY_PARAMETERS;
     }
   }
 }
-
-import {
-  DUMMY_PARAMETERS as SCALABLE_CANVAS_DUMMY_PARAMETERS,
-} from './canvas/ScalableCanvas';
 
 import {
   ScalableCanvas,

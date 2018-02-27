@@ -18,17 +18,17 @@ export interface ScalableCanvasParameters {
   nonScaledShortSideLength: number;
 }
 
-export const DUMMY_PARAMETERS = {
-  scaledWidth: 100,
-  scaledHeight: 100,
-  nonScaledShortSideLength: 100,
-};
-
 /**
  * (To be filled)
  * @hideConstructor
  */
 export class ScalableCanvas {
+  static readonly DUMMY_PARAMETERS: ScalableCanvasParameters = {
+    scaledWidth: 100,
+    scaledHeight: 100,
+    nonScaledShortSideLength: 100,
+  };
+
   /**
    * Corresponding canvas element.
    * (The official p5.js type description defines it as an HTMLCanvasElement object,
