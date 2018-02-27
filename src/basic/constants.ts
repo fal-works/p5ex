@@ -1,4 +1,9 @@
 /**
+ * An empty function.
+ */
+export const EMPTY_FUNCTION = () => { };
+
+/**
  * Set of unicode values from A to Z.
  */
 export const enum KeyCodes {

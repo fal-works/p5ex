@@ -1,10 +1,13 @@
 export {
+  EMPTY_FUNCTION,
   KeyCodes,
 } from './constants';
 
 export {
   distSq,
   multiplyMatrixAndArray,
+  angleDifference,
+  getDirectionAngle,
 } from './math_functions';
 
 export {
@@ -23,3 +26,14 @@ export {
 export {
   WeightedRandomSelector,
 } from './WeightedRandomSelector';
+
+export {
+  easeLinear,
+  easeOutQuad,
+  easeOutCubic,
+  easeOutQuart,
+  easeOutBack,
+  getEasingFunction,
+} from './easing';
+
+export { default } from './dummyP5';
