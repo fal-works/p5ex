@@ -37,8 +37,8 @@
     "doc": "jsdoc -d ./doc/ -c ./jsdoc.conf.json -R ./README.md -t ./node_modules/minami/ ./lib/p5ex.mjs",
     "rollup": "rollup -c",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "uglify:es": "uglifyjs ./lib/p5ex.mjs -c -m --screw-ie8 --output ./lib/p5ex.min.mjs --comments --ecma 6",
-    "uglify:umd": "uglifyjs ./lib/p5ex.js -c -m --screw-ie8 --output ./lib/p5ex.min.js --comments"
+    "uglify:es": "uglifyjs ./lib/p5ex.mjs -c ecma=6 -m --screw-ie8 -o ./lib/p5ex.min.mjs --comments --ecma 6 --safari10",
+    "uglify:umd": "uglifyjs ./lib/p5ex.js -c -m --screw-ie8 -o ./lib/p5ex.min.js --comments --safari10"
   },
   "types": "types/p5ex.d.ts"
 }
