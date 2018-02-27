@@ -36,4 +36,4 @@ export {
   getEasingFunction,
 } from './easing';
 
-export { default } from './dummyP5';
+export { default as dummyP5 } from './dummyP5';

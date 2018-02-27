@@ -9,3 +9,7 @@ export {
 export {
   PhysicsBody,
 } from './PhysicsBody';
+
+export {
+  calculateLeverageForce,
+} from './physics_functions';
