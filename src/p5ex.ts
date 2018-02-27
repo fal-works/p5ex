@@ -33,6 +33,19 @@ class p5exClass extends p5 implements p5exInterface {
    */
   scalableCanvas: ScalableCanvas;
 
+ /**
+   * (To be filled)
+   */
+  get nonScaledWidth(): number {
+    return this.scalableCanvas.nonScaledWidth;
+  }
+
+  /**
+   * (To be filled)
+   */
+  get nonScaledHeight(): number {
+    return this.scalableCanvas.nonScaledHeight;
+  }
 
   /**
    * The HTML element which holds the p5 sketch.
