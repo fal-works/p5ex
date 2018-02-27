@@ -6,6 +6,11 @@ export class ScaleFactor {
   private internalValue: number;
   private internalReciprocalValue: number;
 
+  /**
+   *
+   * @param p - p5ex instance.
+   * @param { number } [value = 1]
+   */
   constructor(p: p5ex, value: number = 1) {
     this.p = p;
     this.internalValue = value;
