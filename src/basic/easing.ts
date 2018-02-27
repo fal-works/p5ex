@@ -1,21 +1,41 @@
+/**
+ * Linear easing function.
+ * @param ratio
+ */
 export function easeLinear(ratio: number) {
   return ratio;
 }
 
+/**
+ * easeOutQuad.
+ * @param ratio
+ */
 export function easeOutQuad(ratio: number) {
   return -Math.pow(ratio - 1, 2) + 1;
 }
 
+/**
+ * easeOutCubic.
+ * @param ratio
+ */
 export function easeOutCubic(ratio: number) {
   return Math.pow(ratio - 1, 3) + 1;
 }
 
+/**
+ * easeOutQuart.
+ * @param ratio
+ */
 export function easeOutQuart(ratio: number) {
   return -Math.pow(ratio - 1, 4) + 1;
 }
 
 const EASE_OUT_BACK_DEFAULT_COEFFICIENT = 1.70158;
 
+/**
+ * easeOutBack.
+ * @param ratio
+ */
 export function easeOutBack(ratio: number) {
   const r = ratio - 1;
 
@@ -25,10 +45,17 @@ export function easeOutBack(ratio: number) {
   );
 }
 
+/**
+ * Easing function.
+ */
 export interface Easing {
   (ratio: number): number;
 }
 
+/**
+ * Returns an easeOut function.
+ * @param exponent - Integer from 1 to 4.
+ */
 export function getEasingFunction(exponent: number): Easing {
   switch (Math.floor(exponent)) {
     default:
