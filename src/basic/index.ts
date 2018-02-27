@@ -37,3 +37,8 @@ export {
 } from './easing';
 
 export { default as dummyP5 } from './dummyP5';
+
+export {
+  Region,
+  RectangleRegion,
+} from './Region';
