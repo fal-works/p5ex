@@ -1,6 +1,5 @@
 import { FrameCounter } from './FrameCounter';
-
-const NULL_FUNCTION = () => { };
+import { EMPTY_FUNCTION } from '../basic';
 
 /**
  * (To be filled)
@@ -28,7 +27,7 @@ export abstract class TimedFrameCounter extends FrameCounter {
    */
   constructor(
     durationFrameCount: number,
-    completeBehavior: () => any = NULL_FUNCTION,
+    completeBehavior: () => any = EMPTY_FUNCTION,
   ) {
     super();
 
