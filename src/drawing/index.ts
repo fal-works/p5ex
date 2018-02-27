@@ -45,3 +45,7 @@ export {
   ScreenShake,
   ScreenFlash,
 } from './ScreenEffect';
+
+export {
+  drawSineWave,
+} from './functions';
