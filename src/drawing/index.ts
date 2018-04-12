@@ -33,3 +33,7 @@ export {
   FontUnit,
   FontManager,
 } from './Font';
+
+export {
+  ScaleFactor,
+} from './ScaleFactor';
