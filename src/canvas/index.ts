@@ -14,3 +14,7 @@ export {
 export {
   AlphaBackground,
 } from './AlphaBackground';
+
+export {
+  mouseIsInCanvas,
+} from './functions';
