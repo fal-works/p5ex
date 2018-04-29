@@ -27,6 +27,7 @@ export {
 
 export {
   drawSineWave,
+  setPixel,
 } from './functions';
 
 export {
