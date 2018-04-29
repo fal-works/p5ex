@@ -1,3 +1,5 @@
+import { RectangleRegion } from '../basic/Region';
+
 /**
  * Parameters for creating p5ex.ScalableCanvas instance.
  */
@@ -35,6 +37,8 @@ export class ScalableCanvas {
    *  however it should actually be handled as a p5.Renderer instance.)
    */
   readonly canvasElement: any;
+
+  readonly region: RectangleRegion;
 
   private readonly p: p5;
   private nonScaledShortSideLength: number;
@@ -90,6 +94,8 @@ export class ScalableCanvas {
       (this.canvasElement as any).parent(node);
     }
 
+    this.region = new RectangleRegion(0, 0, 0, 0);
+
     this.nonScaledShortSideLength = parameter.nonScaledShortSideLength;
     this.updateSize();
   }
@@ -117,6 +123,9 @@ export class ScalableCanvas {
     this._nonScaledWidth = p.width / this._scaleFactor;
     this._nonScaledHeight = p.height / this._scaleFactor;
     this._aspectRatio = p.width / p.height;
+
+    this.region.rightPositionX = this._nonScaledWidth;
+    this.region.bottomPositionY = this._nonScaledHeight;
   }
 
   /**
