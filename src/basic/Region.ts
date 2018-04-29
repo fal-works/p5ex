@@ -2,21 +2,29 @@
  * Spatial region.
  */
 export abstract class Region {
-  /**
+   /**
    * Returns true if the region contains the provided position.
-   * @param position
+   * @param position - The position to check.
+   * @param margin - The outer margin value in non-scaled pixels.
    */
-  abstract contains(position: p5.Vector): boolean;
+  abstract contains(position: p5.Vector, margin?: number): boolean;
+
+  /**
+   * Constrains the provided position in the region.
+   * @param position - The position to constrain.
+   * @param margin - The outer margin value in non-scaled pixels.
+   */
+  abstract constrain(position: p5.Vector, margin?: number): void;
 }
 
 /**
  * Rectangle-shaped spatial region.
  */
 export class RectangleRegion extends Region {
-  readonly leftPositionX: number;
-  readonly topPositionY: number;
-  readonly rightPositionX: number;
-  readonly bottomPositionY: number;
+  leftPositionX: number;
+  topPositionY: number;
+  rightPositionX: number;
+  bottomPositionY: number;
 
   get width(): number { return this.rightPositionX - this.leftPositionX; }
   get height(): number { return this.bottomPositionY - this.topPositionY; }
@@ -31,10 +39,20 @@ export class RectangleRegion extends Region {
     this.bottomPositionY = y2 + margin;
   }
 
-  contains(position: p5.Vector): boolean {
+  contains(position: p5.Vector, margin: number = 0): boolean {
     return (
-      position.x >= this.leftPositionX && position.x <= this.rightPositionX &&
-      position.y >= this.topPositionY && position.y <= this.bottomPositionY
+      position.x >= this.leftPositionX - margin && position.x <= this.rightPositionX + margin &&
+      position.y >= this.topPositionY - margin && position.y <= this.bottomPositionY + margin
     );
   }
+
+  constrain(position: p5.Vector, margin: number = 0): void {
+    if (position.x < this.leftPositionX - margin) position.x = this.leftPositionX - margin;
+    else if (position.x > this.rightPositionX + margin) position.x = this.rightPositionX + margin;
+
+    if (position.y < this.topPositionY - margin) position.y = this.topPositionY - margin;
+    else if (position.y > this.bottomPositionY + margin) position.y = this.bottomPositionY + margin;
+  }
 }
+
+// default region -> add
