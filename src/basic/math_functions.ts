@@ -91,3 +91,17 @@ export function getClosestPositionOnLineSegment(
   p5.Vector.add(A, vectorAX, target);
   return target;
 }
+
+/**
+ * Just lerp.
+ * @param startValue - The start value.
+ * @param endValue - The end value.
+ * @param ratio - The ratio between 0 and 1.
+ */
+export function lerp(
+  startValue: number,
+  endValue: number,
+  ratio: number,
+): number {
+  return startValue + ratio * (endValue - startValue);
+}

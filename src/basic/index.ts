@@ -7,6 +7,7 @@ export {
   multiplyMatrixAndArray,
   angleDifference,
   getDirectionAngle,
+  lerp,
 } from './math_functions';
 
 export {
