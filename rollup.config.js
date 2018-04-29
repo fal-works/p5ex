@@ -4,7 +4,7 @@ import cleanup from 'rollup-plugin-cleanup';
 
 const moduleName = 'p5ex';
 const umdName = 'p5ex';
-const version = '0.4.2';
+const version = '0.5.0';
 const year = '2018';
 const description =
 `* An extension of p5.js.`;
