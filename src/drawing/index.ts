@@ -28,6 +28,7 @@ export {
 export {
   drawSineWave,
   setPixel,
+  lerpPixel,
 } from './functions';
 
 export {
