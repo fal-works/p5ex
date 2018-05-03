@@ -8,8 +8,8 @@ export {
 } from './Edge';
 
 export {
-  AbstractCell,
   Cell,
+  NaiveCell,
   NullCell,
   Grid,
 } from './Grid';
