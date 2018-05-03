@@ -1,7 +1,7 @@
 {
   "name": "p5ex",
   "description": "An extension of p5.js.",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "author": "FAL",
   "dependencies": {
     "no-more-for-loops": "^0.1.0"
