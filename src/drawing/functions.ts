@@ -32,7 +32,41 @@ export function drawSineWave(
 }
 
 /**
- * Set color to the specified pixel. The alpha channel remains unchanged.
+ * Set color to the specified pixel.
+ * @param renderer - Instance of either p5 or p5.Graphics.
+ * @param x - The x index of the pixel.
+ * @param y - The y index of the pixel.
+ * @param red - The red value (0 - 255).
+ * @param green - The green value (0 - 255).
+ * @param blue - The blue value (0 - 255).
+ * @param pixelDensity - If not specified, renderer.pixelDensity() will be called.
+ */
+export function setPixel(
+  renderer: p5 | p5.Graphics,
+  x: number,
+  y: number,
+  red: number,
+  green: number,
+  blue: number,
+  alpha: number,
+  pixelDensity?: number,
+): void {
+  const g = renderer as p5;
+  const d = pixelDensity || g.pixelDensity();
+
+  for (let i = 0; i < d; i += 1) {
+    for (let j = 0; j < d; j += 1) {
+      const idx = 4 * ((y * d + j) * g.width * d + (x * d + i));
+      g.pixels[idx] = red;
+      g.pixels[idx + 1] = green;
+      g.pixels[idx + 2] = blue;
+      g.pixels[idx + 3] = alpha;
+    }
+  }
+}
+
+/**
+ * Lerp color to the specified pixel. The alpha channel remains unchanged.
  * @param renderer - Instance of either p5 or p5.Graphics.
  * @param x - The x index of the pixel.
  * @param y - The y index of the pixel.
@@ -42,7 +76,7 @@ export function drawSineWave(
  * @param pixelDensity - If not specified, renderer.pixelDensity() will be called.
  * @param lerpRatio - The lerp ratio (0 - 1). If 1, the color will be replaced.
  */
-export function setPixel(
+export function lerpPixel(
   renderer: p5 | p5.Graphics,
   x: number,
   y: number,
