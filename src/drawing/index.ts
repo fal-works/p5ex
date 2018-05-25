@@ -29,6 +29,7 @@ export {
   drawSineWave,
   setPixel,
   lerpPixel,
+  gradationBackground,
 } from './functions';
 
 export {

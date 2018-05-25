@@ -99,3 +99,29 @@ export function lerpPixel(
     }
   }
 }
+
+/**
+ * Fill the canvas or graphics (according to p.currentRenderer) with gradation.
+ * @param p
+ * @param backgroundColor
+ * @param fromColor
+ * @param toColor
+ * @param lerpRatioExponent
+ */
+export function gradationBackground(
+  p: p5ex,
+  backgroundColor: p5.Color,
+  fromColor: p5.Color,
+  toColor: p5.Color,
+  lerpRatioExponent: number = 1,
+): void {
+  const g = p.currentRenderer;
+  g.background(backgroundColor);
+  g.strokeWeight(2);
+
+  for (let y = 0; y < g.width; y += 1) {
+    const lerpRatio = Math.pow(y / (g.height - 1), lerpRatioExponent);
+    g.stroke(p.lerpColor(fromColor, toColor, lerpRatio));
+    g.line(0, y, g.width - 1, y);
+  }
+}
