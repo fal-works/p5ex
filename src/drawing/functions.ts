@@ -125,3 +125,34 @@ export function gradationBackground(
     g.line(0, y, g.width - 1, y);
   }
 }
+
+/**
+ * Blends the specified color (default: black) to each pixel with a random alpha value.
+ * @param renderer - Instance of either p5 or p5.Graphics.
+ * @param {number} maxAlpha - The max value of alpha channel (1 - 255).
+ * @param {number} [red]
+ * @param {number} [green]
+ * @param {number} [blue]
+ */
+export function applyRandomTexture(
+  renderer: p5 | p5.Graphics,
+  maxAlpha: number,
+  red: number = 0,
+  green: number = 0,
+  blue: number = 0,
+): p5 | p5.Graphics {
+  const g: any = renderer;
+  const width = g.width;
+  const height = g.height;
+
+  g.loadPixels();
+  for (let y = 0; y < height; y += 1) {
+    for (let x = 0; x < width; x += 1) {
+      setPixel(renderer, x, y, red, green, blue, Math.random() * maxAlpha);
+    }
+  }
+
+  g.updatePixels();
+
+  return g;
+}

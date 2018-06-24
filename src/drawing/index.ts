@@ -30,6 +30,7 @@ export {
   setPixel,
   lerpPixel,
   gradationBackground,
+  applyRandomTexture,
 } from './functions';
 
 export {
