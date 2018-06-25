@@ -126,10 +126,23 @@ export function gradationBackground(
   }
 }
 
+function lerpPixelForRandomTexture(
+  renderer: p5 | p5.Graphics,
+  x: number,
+  y: number,
+  red: number,
+  green: number,
+  blue: number,
+  alpha: number,
+): void {
+  lerpPixel(renderer, x, y, red, green, blue, undefined, alpha / 255);
+}
+
 /**
- * Blends the specified color (default: black) to each pixel with a random alpha value.
+ * Sets the specified color (default: black) to each pixel with a random alpha value.
  * @param renderer - Instance of either p5 or p5.Graphics.
  * @param {number} maxAlpha - The max value of alpha channel (1 - 255).
+ * @param {boolean} [blend] - Set true for blending, false for replacing.
  * @param {number} [red]
  * @param {number} [green]
  * @param {number} [blue]
@@ -137,6 +150,7 @@ export function gradationBackground(
 export function applyRandomTexture(
   renderer: p5 | p5.Graphics,
   maxAlpha: number,
+  blend: boolean = true,
   red: number = 0,
   green: number = 0,
   blue: number = 0,
@@ -144,11 +158,12 @@ export function applyRandomTexture(
   const g: any = renderer;
   const width = g.width;
   const height = g.height;
+  const operatePixel = blend ? lerpPixelForRandomTexture : setPixel;
 
   g.loadPixels();
   for (let y = 0; y < height; y += 1) {
     for (let x = 0; x < width; x += 1) {
-      setPixel(renderer, x, y, red, green, blue, Math.random() * maxAlpha);
+      operatePixel(renderer, x, y, red, green, blue, Math.random() * maxAlpha);
     }
   }
 
