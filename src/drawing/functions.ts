@@ -33,6 +33,7 @@ export function drawSineWave(
 
 /**
  * Set color to the specified pixel.
+ * Should be used in conjunction with loadPixels() and updatePixels().
  * @param renderer - Instance of either p5 or p5.Graphics.
  * @param x - The x index of the pixel.
  * @param y - The y index of the pixel.
@@ -67,6 +68,7 @@ export function setPixel(
 
 /**
  * Lerp color to the specified pixel. The alpha channel remains unchanged.
+ * Should be used in conjunction with loadPixels() and updatePixels().
  * @param renderer - Instance of either p5 or p5.Graphics.
  * @param x - The x index of the pixel.
  * @param y - The y index of the pixel.
