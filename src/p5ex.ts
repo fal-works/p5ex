@@ -3,6 +3,7 @@ import p5exInterface from './p5exInterface';
 /**
  * Extension of p5 class.
  */
+// tslint:disable-next-line:class-name
 class p5exClass extends p5 implements p5exInterface {
   /**
    * Current renderer object, either the p5ex instance itself or any p5.Graphics instance.
@@ -156,7 +157,7 @@ class p5exClass extends p5 implements p5exInterface {
   createScalableCanvas(
     type: ScalableCanvasType,
     parameters?: ScalableCanvasParameters,
-    rendererType?: string,
+    rendererType?: 'p2d' | 'webgl' | undefined,
   ): void {
     this.scalableCanvasType = type;
     this.scalableCanvas = new ScalableCanvas(

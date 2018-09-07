@@ -55,9 +55,7 @@ class AlphaColorUnit implements ColorUnit {
   }
 
   private getColor(alphaValue?: number) {
-    return this.colorArray[
-      alphaValue ? Math.floor(this.p.map(alphaValue, 0, 255, 0, this.maxIndex)) : this.maxIndex
-    ];
+    return this.colorArray[alphaValue ? Math.floor(this.p.map(alphaValue, 0, 255, 0, this.maxIndex)) : this.maxIndex];
   }
 }
 

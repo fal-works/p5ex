@@ -34,7 +34,8 @@
                 "variable-declaration": "onespace"
             }
         ],
-        "no-trailing-whitespace": true
+        "no-trailing-whitespace": true,
+        "max-line-length": false
     },
     "rulesDirectory": []
 }

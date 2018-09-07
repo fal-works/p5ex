@@ -8,8 +8,8 @@ export class AlphaBackground implements Drawable {
   private readonly p: p5ex;
   private backgroundColor: p5.Color;
   private drawIntervalFrameCount: number;
-  private blendModeString: string | undefined;
-  private defaultBlendModeString: string | undefined;
+  private blendModeString: BLEND_MODE | undefined;
+  private defaultBlendModeString: BLEND_MODE | undefined;
 
   /**
    *
@@ -23,8 +23,8 @@ export class AlphaBackground implements Drawable {
     p5exInstance: p5ex,
     backgroundColor: p5.Color,
     drawIntervalFrameCount: number = 1,
-    blendModeString?: string,
-    defaultBlendModeString?: string,
+    blendModeString?: BLEND_MODE,
+    defaultBlendModeString?: BLEND_MODE,
   ) {
     this.p = p5exInstance;
     this.backgroundColor = backgroundColor;

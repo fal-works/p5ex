@@ -83,7 +83,7 @@ export class ScalableCanvas {
     p5Instance: p5,
     parameter: ScalableCanvasParameters,
     node: HTMLElement,
-    rendererType?: string,
+    rendererType?: RENDERER,
   ) {
     this.p = p5Instance;
     this.canvasElement = p5Instance.createCanvas(

@@ -1,3 +1,4 @@
+// tslint:disable-next-line:class-name
 interface p5exInterface extends p5 {
   currentRenderer: p5;
 

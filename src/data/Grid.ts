@@ -68,7 +68,6 @@ export class NaiveCell implements Cell {
   }
 }
 
-
 export interface Index2D {
   x: number;
   y: number;
