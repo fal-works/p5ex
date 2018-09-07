@@ -15,7 +15,7 @@
         "noImplicitThis": true
     },
     "files": [
-        "./src/p5.d.ts",
+        "./p5.d.ts",
         "./src/p5ex.ts"
     ],
     "compileOnSave": true
