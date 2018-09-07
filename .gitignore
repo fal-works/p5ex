@@ -5,3 +5,4 @@ package-lock.json
 lib/
 types/
 doc/
+p5.d.ts
