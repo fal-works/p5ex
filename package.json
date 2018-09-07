@@ -1,7 +1,7 @@
 {
   "name": "p5ex",
   "description": "An extension of p5.js.",
-  "version": "0.5.6",
+  "version": "0.5.7",
   "author": "FAL",
   "dependencies": {
     "no-more-for-loops": "^0.1.0"
@@ -9,14 +9,14 @@
   "devDependencies": {
     "jsdoc": "^3.5.5",
     "minami": "^1.2.3",
-    "p5": "^0.6.0",
-    "rollup": "^0.53.4",
-    "rollup-plugin-cleanup": "^2.0.0",
-    "rollup-plugin-node-resolve": "^3.0.3",
-    "rollup-plugin-typescript2": "^0.10.0",
-    "tslint": "^5.9.1",
-    "tslint-config-airbnb": "^5.7.0",
-    "typescript": "2.6.2",
+    "p5": "^0.7.2",
+    "rollup": "^0.65.2",
+    "rollup-plugin-cleanup": "^3.0.0",
+    "rollup-plugin-node-resolve": "^3.4.0",
+    "rollup-plugin-typescript2": "^0.17.0",
+    "tslint": "^5.11.0",
+    "tslint-config-airbnb": "^5.11.0",
+    "typescript": "^3.0.3",
     "uglify-es": "3.3.7"
   },
   "files": [
