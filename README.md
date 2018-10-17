@@ -1,6 +1,8 @@
 # p5ex.js
 An extension of p5.js.
 
+Note: The development of this library has been started just for personal use and everything may change in future.
+
 ---
 
 ## Usage
@@ -48,3 +50,5 @@ sketch(p5exInstance);
 ## Reference
 
 See doc/index.html (very rough for now)
+
+This document includes works that are distributed under the Apache License 2.0.
